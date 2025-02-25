@@ -51,21 +51,42 @@
         .navbar ul li a:hover {
             color: #ff7e5f;
         }
+
+        /* Header with Background Image */
         header {
-            background: #f3f3f3;
+            background: url('header.jpg') center/cover no-repeat;
+            position: relative;
             padding: 180px 20px;
             border-radius: 20px;
             margin: 120px auto 20px auto;
             max-width: 900px;
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 300px;
         }
-        .profile-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
+        /* Dark Overlay for Better Readability */
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            z-index: 1;
         }
+        header * {
+            position: relative;
+            z-index: 2;
+        }
+
         h1 {
             font-size: 50px;
             font-weight: bold;
@@ -88,6 +109,7 @@
         .btn:hover {
             background: #e66b4c;
         }
+
         .section {
             margin: 50px auto;
             max-width: 900px;
@@ -102,12 +124,7 @@
             font-size: 28px;
             text-align: center;
         }
-        .about-content {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            line-height: 1.6;
-        }
+
         .skill {
             margin-bottom: 15px;
         }
@@ -134,23 +151,7 @@
             border-radius: 10px;
             transition: width 0.5s ease-in-out;
         }
-        .projects-list {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
-        .projects-list a {
-            background: #ff7e5f;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-weight: bold;
-            text-decoration: none;
-        }
-        .projects-list a:hover {
-            background: #e66b4c;
-        }
+        
         footer {
             margin-top: 50px;
             padding: 20px;
@@ -172,56 +173,41 @@
     </nav>
     
     <header>
-        <img src="profile.jpg" alt="Profile Picture" class="profile-img">
-        <h1>Building digital <span>products</span>, brands, and experience.</h1>
+        <h1>Hello MySelf<br><span> Jahidul Karim Palash <br></span>A passionate WebApplication Developer</h1>
         <a href="#projects" class="btn">Latest Work</a>
     </header>
     
     <section id="about" class="section">
         <h2>About Me</h2>
-        <div class="about-content">
-            <p>Passionate about technology and innovation, I specialize in web development, AI, and data-driven solutions.</p>
-            <p><strong>Name:</strong> Your Name</p>
-            <p><strong>Email:</strong> your.email@example.com</p>
-            <p><strong>Phone:</strong> +1234567890</p>
-            <p><strong>Address:</strong> Your City, Country</p>
-        </div>
+        <h2>Passionate about technology and innovation, I specialize in web development, AI, and data-driven solutions.</h2>
     </section>
     
     <section id="skills" class="section">
         <h2>Skills</h2>
         <div class="skill">
             <p>HTML</p>
-            <div class="progress-bar">
-                <div class="progress" style="width: 90%;">90%</div>
-            </div>
+            <div class="progress-bar"><div class="progress" style="width: 90%;">90%</div></div>
         </div>
         <div class="skill">
             <p>Python</p>
-            <div class="progress-bar">
-                <div class="progress" style="width: 80%;">80%</div>
-            </div>
+            <div class="progress-bar"><div class="progress" style="width: 80%;">80%</div></div>
         </div>
         <div class="skill">
             <p>MySQL</p>
-            <div class="progress-bar">
-                <div class="progress" style="width: 75%;">75%</div>
-            </div>
+            <div class="progress-bar"><div class="progress" style="width: 75%;">75%</div></div>
         </div>
         <div class="skill">
             <p>JavaScript</p>
-            <div class="progress-bar">
-                <div class="progress" style="width: 60%;">60%</div>
-            </div>
+            <div class="progress-bar"><div class="progress" style="width: 60%;">60%</div></div>
         </div>
     </section>
     
     <section id="projects" class="section">
         <h2>Projects</h2>
         <div class="projects-list">
-            <a href="#">Project 1</a>
-            <a href="#">Project 2</a>
-            <a href="#">Project 3</a>
+            <a href="#" class="btn">Project 1</a>
+            <a href="#" class="btn">Project 2</a>
+            <a href="#" class="btn">Project 3</a>
         </div>
     </section>
     
