@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #fff;
+            position: fixed;
+            padding-top: 20px;
+            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar a {
+            padding: 15px;
+            display: block;
+            color: #333;
+            text-decoration: none;
+        }
+        .sidebar a:hover {
+            background: #f1f1f1;
+        }
+        .content {
+            margin-left: 260px;
+            padding: 20px;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h4 class="text-center">Admin Panel</h4>
+        <a href="#">Dashboard</a>
+        <a href="#">User Statistics</a>
+        <a href="#">Manage Jobs</a>
+        <a href="#">System Performance</a>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h5>500+</h5>
+                        <p>Active Users</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h5>120+</h5>
+                        <p>Job Listings</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h5>80%</h5>
+                        <p>AI Match Success</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card p-3 text-center">
+                        <h5>30+</h5>
+                        <p>Reports Generated</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-8">
+                    <div class="card p-3">
+                        <h5>Reports</h5>
+                        <canvas id="reportChart"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        <h5>Analytics</h5>
+                        <canvas id="analyticsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var ctx = document.getElementById('reportChart').getContext('2d');
+        var reportChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Jobs Posted',
+                    data: [30, 50, 80, 60, 100, 120],
+                    borderColor: '#007bff',
+                    fill: false
+                }]
+            }
+        });
+
+        var ctx2 = document.getElementById('analyticsChart').getContext('2d');
+        var analyticsChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Active Users', 'Inactive Users'],
+                datasets: [{
+                    data: [80, 20],
+                    backgroundColor: ['#28a745', '#dc3545']
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
