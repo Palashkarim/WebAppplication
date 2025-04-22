@@ -1,126 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: #fff;
-            position: fixed;
-            padding-top: 20px;
-            box-shadow: 2px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-        .sidebar a {
-            padding: 15px;
-            display: block;
-            color: #333;
-            text-decoration: none;
-        }
-        .sidebar a:hover {
-            background: #f1f1f1;
-        }
-        .content {
-            margin-left: 260px;
-            padding: 20px;
-        }
-        .card {
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      transition: background-color 0.3s ease;
+    }
+
+    section {
+      padding: 60px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .blur-navbar {
+      background-color: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+    .card {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .table {
+      border-radius: 16px;
+      overflow: hidden;
+      background-color: white;
+    }
+
+    .list-group-item {
+      border: none;
+      border-bottom: 1px solid #eee;
+      background: white;
+    }
+
+    h2 {
+      font-weight: 600;
+      font-size: 1.8rem;
+    }
+
+    footer {
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+    }
+  </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h4 class="text-center">Admin Panel</h4>
-        <a href="#">Dashboard</a>
-        <a href="#">User Statistics</a>
-        <a href="#">Manage Jobs</a>
-        <a href="#">System Performance</a>
-        <a href="#">Reports</a>
-        <a href="#">Settings</a>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light blur-navbar shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Admin Panel</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#users">Users</a></li>
+          <li class="nav-item"><a class="nav-link" href="#jobs">Jobs</a></li>
+          <li class="nav-item"><a class="nav-link" href="#analytics">Analytics</a></li>
+          <li class="nav-item"><a class="nav-link" href="#ai">AI Insights</a></li>
+          <li class="nav-item"><a class="nav-link" href="#reports">Reports</a></li>
+        </ul>
+      </div>
     </div>
+  </nav>
 
-    <div class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="card p-3 text-center">
-                        <h5>500+</h5>
-                        <p>Active Users</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-3 text-center">
-                        <h5>120+</h5>
-                        <p>Job Listings</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-3 text-center">
-                        <h5>80%</h5>
-                        <p>AI Match Success</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-3 text-center">
-                        <h5>30+</h5>
-                        <p>Reports Generated</p>
-                    </div>
-                </div>
-            </div>
+  <!-- Users Section -->
+  <section id="users">
+    <div class="container">
+      <h2 class="mb-4">User Management</h2>
+      <div class="card p-4">
+        <table class="table">
+          <thead class="table-light">
+            <tr><th>ID</th><th>Name</th><th>Role</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Alice</td><td>Job Seeker</td><td>Active</td><td><button class="btn btn-sm btn-danger">Block</button></td></tr>
+            <tr><td>2</td><td>Bob</td><td>Employer</td><td>Banned</td><td><button class="btn btn-sm btn-success">Unban</button></td></tr>
+            <tr><td>3</td><td>Charlie</td><td>Job Seeker</td><td>Active</td><td><button class="btn btn-sm btn-danger">Block</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-            <div class="row mt-4">
-                <div class="col-md-8">
-                    <div class="card p-3">
-                        <h5>Reports</h5>
-                        <canvas id="reportChart"></canvas>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card p-3">
-                        <h5>Analytics</h5>
-                        <canvas id="analyticsChart"></canvas>
-                    </div>
-                </div>
-            </div>
+  <!-- Jobs Section -->
+  <section id="jobs">
+    <div class="container">
+      <h2 class="mb-4">Job Posts Control</h2>
+      <div class="card p-4">
+        <table class="table">
+          <thead class="table-light">
+            <tr><th>Job ID</th><th>Title</th><th>Employer</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>101</td><td>Frontend Dev</td><td>Bob Ltd</td><td>Pending</td><td><button class="btn btn-sm btn-warning">Approve</button></td></tr>
+            <tr><td>102</td><td>Data Analyst</td><td>Data Inc</td><td>Approved</td><td><button class="btn btn-sm btn-danger">Remove</button></td></tr>
+            <tr><td>103</td><td>UX Designer</td><td>Creative Co</td><td>Rejected</td><td><button class="btn btn-sm btn-info">Review</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Analytics Section -->
+  <section id="analytics">
+    <div class="container">
+      <h2 class="mb-4">Site Analytics</h2>
+      <div class="card p-4 mb-4">
+        <ul class="list-group mb-3">
+          <li class="list-group-item">Total Users: 1,205</li>
+          <li class="list-group-item">Total Jobs Posted: 312</li>
+          <li class="list-group-item">Applications Submitted: 2,104</li>
+          <li class="list-group-item">New Users This Month: 110</li>
+        </ul>
+        <canvas id="analyticsChart" height="100"></canvas>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Insights -->
+  <section id="ai">
+    <div class="container">
+      <h2 class="mb-4">AI Insights</h2>
+      <div class="card p-4">
+        <p>Matching Accuracy: <strong>87%</strong></p>
+        <p>Top Suggested Job Category: <strong>Software Development</strong></p>
+        <p>Average Resume Parsing Success Rate: <strong>91%</strong></p>
+        <p><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#failModal">Review Failed Parsings</button></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div class="modal fade" id="failModal" tabindex="-1" aria-labelledby="failModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="failModalLabel">Failed Resume Parsings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <div class="modal-body">
+          <ul>
+            <li>Resume_001.pdf - Unreadable format</li>
+            <li>Resume_056.doc - Missing key fields</li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <script>
-        var ctx = document.getElementById('reportChart').getContext('2d');
-        var reportChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Jobs Posted',
-                    data: [30, 50, 80, 60, 100, 120],
-                    borderColor: '#007bff',
-                    fill: false
-                }]
-            }
-        });
+  <!-- Reports Section -->
+  <section id="reports">
+    <div class="container">
+      <h2 class="mb-4">Reports & Feedback</h2>
+      <div class="card p-4">
+        <table class="table">
+          <thead class="table-light">
+            <tr><th>Report ID</th><th>From User</th><th>Message</th><th>Status</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>R01</td><td>Alice</td><td>Spam post</td><td>Pending</td><td><button class="btn btn-sm btn-outline-primary">Resolve</button></td></tr>
+            <tr><td>R02</td><td>Charlie</td><td>AI job not accurate</td><td>Open</td><td><button class="btn btn-sm btn-outline-danger">Mark Closed</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-        var ctx2 = document.getElementById('analyticsChart').getContext('2d');
-        var analyticsChart = new Chart(ctx2, {
-            type: 'doughnut',
-            data: {
-                labels: ['Active Users', 'Inactive Users'],
-                datasets: [{
-                    data: [80, 20],
-                    backgroundColor: ['#28a745', '#dc3545']
-                }]
-            }
-        });
-    </script>
+  <footer class="text-center p-4 bg-light mt-5">
+    <small>&copy; 2025 JobLy Admin Dashboard</small>
+  </footer>
+
+  <script>
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    const analyticsChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+          label: 'New Users',
+          data: [30, 50, 80, 60, 110],
+          fill: true,
+          backgroundColor: 'rgba(54, 162, 235, 0.2)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

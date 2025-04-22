@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI JobFinder - User Settings</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4e73df;
+            --secondary-color: #f8f9fc;
+            --accent-color: #2e59d9;
+        }
+        
+        body {
+            background-color: #f8f9fc;
+            font-family: 'Nunito', sans-serif;
+        }
+        
+        .settings-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .settings-sidebar {
+            border-right: 1px solid #e3e6f0;
+            padding: 20px 0;
+        }
+        
+        .settings-sidebar .nav-link {
+            color: #5a5c69;
+            padding: 10px 20px;
+            border-radius: 0;
+            border-left: 3px solid transparent;
+        }
+        
+        .settings-sidebar .nav-link.active {
+            color: var(--primary-color);
+            background-color: #f8f9fe;
+            border-left: 3px solid var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .settings-sidebar .nav-link:hover {
+            color: var(--primary-color);
+            background-color: #f8f9fe;
+        }
+        
+        .settings-content {
+            padding: 30px;
+        }
+        
+        .settings-card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .settings-card-header {
+            background-color: #f8f9fe;
+            border-bottom: 1px solid #e3e6f0;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0 !important;
+        }
+        
+        .dropzone {
+            border: 2px dashed #d1d3e2;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f9fe;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .dropzone:hover {
+            border-color: var(--primary-color);
+            background-color: #f0f3ff;
+        }
+        
+        .file-info {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: #858796;
+        }
+        
+        .form-check-input:checked {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+     <!-- Navbar -->
+     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">Job<span class="text-success">Finder</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Log In</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="btn btn-success" href="jobPost.html">Post New Job</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container py-5">
+        <div class="settings-container">
+            <div class="row">
+                <!-- Settings Sidebar -->
+                <div class="col-md-3 settings-sidebar">
+                    <ul class="nav flex-column" id="settingsTabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab">
+                                <i class="fas fa-user-circle me-2"></i> Profile
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="resumes-tab" data-bs-toggle="tab" href="#resumes" role="tab">
+                                <i class="fas fa-file-alt me-2"></i> Resumes & Skills
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="applications-tab" data-bs-toggle="tab" href="#applications" role="tab">
+                                <i class="fas fa-briefcase me-2"></i> Job Applications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="notifications-tab" data-bs-toggle="tab" href="#notifications" role="tab">
+                                <i class="fas fa-bell me-2"></i> Notifications
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="privacy-tab" data-bs-toggle="tab" href="#privacy" role="tab">
+                                <i class="fas fa-lock me-2"></i> Privacy & Security
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="account-tab" data-bs-toggle="tab" href="#account" role="tab">
+                                <i class="fas fa-cog me-2"></i> Account Settings
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Settings Content -->
+                <div class="col-md-9 settings-content">
+                    <div class="tab-content" id="settingsTabsContent">
+                        <!-- Profile Tab -->
+                        <div class="tab-pane fade show active" id="profile" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-user-circle me-2"></i> Profile Settings</h4>
+                            
+                            <div class="settings-card card mb-4">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Personal Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="firstName" class="form-label">First Name</label>
+                                                <input type="text" class="form-control" id="firstName" value="John">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="lastName" class="form-label">Last Name</label>
+                                                <input type="text" class="form-control" id="lastName" value="Doe">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="headline" class="form-label">Professional Headline</label>
+                                            <input type="text" class="form-control" id="headline" value="Senior Software Engineer">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="bio" class="form-label">Bio</label>
+                                            <textarea class="form-control" id="bio" rows="3">Passionate senior software engineer with 8+ years of experience building scalable web applications. Specialized in JavaScript frameworks with a focus on React and Node.js.</textarea>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label for="location" class="form-label">Location</label>
+                                                <input type="text" class="form-control" id="location" value="San Francisco, CA">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label for="phone" class="form-label">Phone Number</label>
+                                                <input type="tel" class="form-control" id="phone" value="(555) 123-4567">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Social Profiles</h5>
+                                </div>
+                                <div class="card-body">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="linkedin" class="form-label">LinkedIn</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fab fa-linkedin"></i></span>
+                                                <input type="url" class="form-control" id="linkedin" placeholder="https://linkedin.com/in/yourprofile">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="github" class="form-label">GitHub</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fab fa-github"></i></span>
+                                                <input type="url" class="form-control" id="github" placeholder="https://github.com/yourusername">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="portfolio" class="form-label">Portfolio Website</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text"><i class="fas fa-globe"></i></span>
+                                                <input type="url" class="form-control" id="portfolio" placeholder="https://yourportfolio.com">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Resumes & Skills Tab -->
+                        <div class="tab-pane fade" id="resumes" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-file-alt me-2"></i> Resumes & Skills</h4>
+                            
+                            <div class="settings-card card mb-4">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Resume Management</h5>
+                                </div>
+                                <div class="card-body">
+                                    <p class="text-muted mb-4">Upload and manage your resumes for job applications</p>
+                                    
+                                    <div class="dropzone" id="resumeDropzone">
+                                        <i class="fas fa-cloud-upload-alt fa-3x text-primary mb-3"></i>
+                                        <h5>Drop & drop your resume or browse</h5>
+                                        <div class="file-info">
+                                            Accepted formats: PDF, Word, Text | Max size: 10MB
+                                        </div>
+                                        <input type="file" id="resumeUpload" class="d-none" accept=".pdf,.doc,.docx,.txt">
+                                        <button class="btn btn-sm btn-primary mt-3" onclick="document.getElementById('resumeUpload').click()">
+                                            <i class="fas fa-upload me-1"></i> Upload Resume
+                                        </button>
+                                    </div>
+                                    
+                                    <div class="mt-4">
+                                        <h6>Your Resumes</h6>
+                                        <div class="list-group">
+                                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <i class="fas fa-file-pdf text-danger me-2"></i>
+                                                    <span>John_Doe_Resume_2023.pdf</span>
+                                                    <span class="badge bg-primary ms-2">Primary</span>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary me-1">Download</button>
+                                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                                </div>
+                                            </div>
+                                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                                <div>
+                                                    <i class="fas fa-file-word text-primary me-2"></i>
+                                                    <span>John_Doe_Resume_2023.docx</span>
+                                                </div>
+                                                <div>
+                                                    <button class="btn btn-sm btn-outline-secondary me-1">Download</button>
+                                                    <button class="btn btn-sm btn-outline-primary me-1">Set as Primary</button>
+                                                    <button class="btn btn-sm btn-outline-danger">Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Skills & Expertise</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label class="form-label">Add Skills</label>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" placeholder="Enter a skill (e.g. JavaScript, Project Management)" id="skillInput">
+                                            <button class="btn btn-primary" type="button" id="addSkillBtn">Add</button>
+                                        </div>
+                                        <div id="skillsContainer" class="d-flex flex-wrap gap-2">
+                                            <span class="badge bg-primary p-2">
+                                                JavaScript <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                                            </span>
+                                            <span class="badge bg-primary p-2">
+                                                React <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                                            </span>
+                                            <span class="badge bg-primary p-2">
+                                                Node.js <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                                            </span>
+                                            <span class="badge bg-primary p-2">
+                                                Python <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                                            </span>
+                                            <span class="badge bg-primary p-2">
+                                                AWS <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="form-label">Skill Proficiency</label>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>JavaScript</span>
+                                                <span>Expert</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 95%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>React</span>
+                                                <span>Advanced</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 85%"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <div class="d-flex justify-content-between mb-1">
+                                                <span>Node.js</span>
+                                                <span>Advanced</span>
+                                            </div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 80%"></div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-primary">Save Changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Job Applications Tab -->
+                        <div class="tab-pane fade" id="applications" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-briefcase me-2"></i> Job Applications</h4>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Application History</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead>
+                                                <tr>
+                                                    <th>Position</th>
+                                                    <th>Company</th>
+                                                    <th>Date</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Senior Frontend Developer</td>
+                                                    <td>TechCorp Inc.</td>
+                                                    <td>2023-05-15</td>
+                                                    <td><span class="badge bg-info">Under Review</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Full Stack Engineer</td>
+                                                    <td>WebSolutions Ltd.</td>
+                                                    <td>2023-04-28</td>
+                                                    <td><span class="badge bg-success">Interview Scheduled</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>JavaScript Developer</td>
+                                                    <td>Digital Creations</td>
+                                                    <td>2023-04-10</td>
+                                                    <td><span class="badge bg-secondary">Not Selected</span></td>
+                                                    <td>
+                                                        <button class="btn btn-sm btn-outline-primary">View</button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notifications Tab -->
+                        <div class="tab-pane fade" id="notifications" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-bell me-2"></i> Notification Settings</h4>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Email Notifications</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="jobMatches" checked>
+                                        <label class="form-check-label" for="jobMatches">New job matches</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="applicationUpdates" checked>
+                                        <label class="form-check-label" for="applicationUpdates">Application updates</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="recruiterMessages" checked>
+                                        <label class="form-check-label" for="recruiterMessages">Recruiter messages</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="skillSuggestions">
+                                        <label class="form-check-label" for="skillSuggestions">Skill improvement suggestions</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="newsletter" checked>
+                                        <label class="form-check-label" for="newsletter">Monthly newsletter</label>
+                                    </div>
+                                    <button class="btn btn-primary">Save Preferences</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Privacy & Security Tab -->
+                        <div class="tab-pane fade" id="privacy" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-lock me-2"></i> Privacy & Security</h4>
+                            
+                            <div class="settings-card card mb-4">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Privacy Settings</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label class="form-label">Profile Visibility</label>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="visibility" id="visibilityPublic" checked>
+                                            <label class="form-check-label" for="visibilityPublic">
+                                                Public - Your profile can be seen by anyone
+                                            </label>
+                                        </div>
+                                        <div class="form-check mb-2">
+                                            <input class="form-check-input" type="radio" name="visibility" id="visibilityRecruiters">
+                                            <label class="form-check-label" for="visibilityRecruiters">
+                                                Recruiters only - Only verified recruiters can see your profile
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="visibility" id="visibilityPrivate">
+                                            <label class="form-check-label" for="visibilityPrivate">
+                                                Private - Only you can see your profile
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label">Data Sharing</label>
+                                        <div class="form-check form-switch mb-2">
+                                            <input class="form-check-input" type="checkbox" id="shareDataAI" checked>
+                                            <label class="form-check-label" for="shareDataAI">
+                                                Allow AI to analyze my profile for better job matches
+                                            </label>
+                                        </div>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="shareDataPartners">
+                                            <label class="form-check-label" for="shareDataPartners">
+                                                Share anonymized data with partner companies for research
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary">Save Settings</button>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Security</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-4">
+                                        <label class="form-label">Change Password</label>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" placeholder="Current Password">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" placeholder="New Password">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="password" class="form-control" placeholder="Confirm New Password">
+                                        </div>
+                                        <button class="btn btn-primary">Update Password</button>
+                                    </div>
+                                    
+                                    <div>
+                                        <label class="form-label">Two-Factor Authentication</label>
+                                        <div class="alert alert-warning">
+                                            <i class="fas fa-exclamation-triangle me-2"></i>
+                                            Two-factor authentication is currently <strong>disabled</strong>.
+                                        </div>
+                                        <button class="btn btn-outline-primary">Enable Two-Factor Auth</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Account Settings Tab -->
+                        <div class="tab-pane fade" id="account" role="tabpanel">
+                            <h4 class="mb-4"><i class="fas fa-cog me-2"></i> Account Settings</h4>
+                            
+                            <div class="settings-card card mb-4">
+                                <div class="settings-card-header card-header">
+                                    <h5 class="mb-0">Account Information</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <label for="email" class="form-label">Email Address</label>
+                                        <input type="email" class="form-control" id="email" value="john.doe@example.com">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="language" class="form-label">Preferred Language</label>
+                                        <select class="form-select" id="language">
+                                            <option selected>English</option>
+                                            <option>Spanish</option>
+                                            <option>French</option>
+                                            <option>German</option>
+                                            <option>Chinese</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="timezone" class="form-label">Timezone</label>
+                                        <select class="form-select" id="timezone">
+                                            <option selected>(GMT-08:00) Pacific Time (US & Canada)</option>
+                                            <option>(GMT-07:00) Mountain Time (US & Canada)</option>
+                                            <option>(GMT-06:00) Central Time (US & Canada)</option>
+                                            <option>(GMT-05:00) Eastern Time (US & Canada)</option>
+                                        </select>
+                                    </div>
+                                    <button class="btn btn-primary">Save Changes</button>
+                                </div>
+                            </div>
+                            
+                            <div class="settings-card card">
+                                <div class="settings-card-header card-header bg-danger text-white">
+                                    <h5 class="mb-0">Danger Zone</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="mb-3">
+                                        <h6>Deactivate Account</h6>
+                                        <p class="text-muted">Your profile will be hidden but not permanently deleted. You can reactivate your account anytime by logging in.</p>
+                                        <button class="btn btn-outline-danger">Deactivate Account</button>
+                                    </div>
+                                    <div>
+                                        <h6>Delete Account</h6>
+                                        <p class="text-muted">This will permanently delete your account and all associated data. This action cannot be undone.</p>
+                                        <button class="btn btn-danger">Delete Account</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Handle skill addition
+            document.getElementById('addSkillBtn').addEventListener('click', function() {
+                const skillInput = document.getElementById('skillInput');
+                const skill = skillInput.value.trim();
+                
+                if (skill) {
+                    const skillsContainer = document.getElementById('skillsContainer');
+                    const skillBadge = document.createElement('span');
+                    skillBadge.className = 'badge bg-primary p-2';
+                    skillBadge.innerHTML = `
+                        ${skill} <button class="btn-close btn-close-white ms-1" style="font-size: 0.5rem;"></button>
+                    `;
+                    
+                    // Add remove functionality
+                    skillBadge.querySelector('.btn-close').addEventListener('click', function() {
+                        skillsContainer.removeChild(skillBadge);
+                    });
+                    
+                    skillsContainer.appendChild(skillBadge);
+                    skillInput.value = '';
+                }
+            });
+            
+            // Allow pressing Enter to add skill
+            document.getElementById('skillInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('addSkillBtn').click();
+                }
+            });
+            
+            // Handle file dropzone
+            const dropzone = document.getElementById('resumeDropzone');
+            const fileInput = document.getElementById('resumeUpload');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, highlight, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, unhighlight, false);
+            });
+            
+            function highlight() {
+                dropzone.classList.add('border-primary');
+                dropzone.style.backgroundColor = '#f0f3ff';
+            }
+            
+            function unhighlight() {
+                dropzone.classList.remove('border-primary');
+                dropzone.style.backgroundColor = '#f8f9fe';
+            }
+            
+            dropzone.addEventListener('drop', handleDrop, false);
+            
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                handleFiles(files);
+            }
+            
+            fileInput.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+            
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+                    const fileSize = file.size / 1024 / 1024; // in MB
+                    
+                    if (fileSize > 10) {
+                        alert('File size exceeds 10MB limit');
+                        return;
+                    }
+                    
+                    const validTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'text/plain'];
+                    if (!validTypes.includes(file.type)) {
+                        alert('Only PDF, Word, and Text files are allowed');
+                        return;
+                    }
+                    
+                    // Here you would typically upload the file to your server
+                    alert(`File "${file.name}" ready for upload (simulated)`);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

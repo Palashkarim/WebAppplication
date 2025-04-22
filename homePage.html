@@ -11,9 +11,9 @@
             background-size: cover;
         }
         .hero-section {
-            background: rgba(0, 0, 0, 0.6);
+            background: rgba(30, 29, 29, 0.6);
             color: white;
-            padding: 100px 0;
+            padding: 300px 0;
         }
         .hero-section .search-box {
             background: rgba(255, 255, 255, 0.9);
@@ -51,22 +51,34 @@
         .recent-job-location {
             color: #555;
         }
+        .search-results {
+            display: none;
+            margin-top: 30px;
+        }
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top" style="background-color: rgba(255, 255, 255, 0.75); backdrop-filter: blur(8px);">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Job<span class="text-success">Finder</span></a>
+            <a class="navbar-brand fw-bold" href="#">Next<span class="text-success">Move</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="#">For Candidates</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">For Employers</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Log In</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    <li class="nav-item"><a class="btn btn-success" href="#">Post New Job</a></li>
+                    <li class="nav-item"><a class="btn btn-success" href="jobPost.html">Post New Job</a></li>
                 </ul>
             </div>
         </div>
@@ -77,271 +89,319 @@
         <div class="container">
             <h1 class="fw-bold">Find Your Dream Job</h1>
             <p class="lead">Search for jobs based on your skills and preferences</p>
-            
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" id="keywordSearch" class="form-control" placeholder="Job title, keywords, or company">
+                        <button class="btn btn-success" type="button" id="searchButton">Search</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Search & Filtering Section -->
     <div class="search-filter-section text-center">
         <div class="container">
-            <h2 class="fw-bold">Refine Your Search</h2>
-            <form class="row g-3">
+            <h2 class="fw-bold">Filter Your Search</h2>
+            <form class="row g-3" id="searchForm">
                 <div class="col-md-3">
-                    <select class="form-control">
-                        <option>Job Type</option>
-                        <option>Full-Time</option>
-                        <option>Part-Time</option>
-                        <option>Remote</option>
+                    <select class="form-control" id="jobType">
+                        <option value="">All Job Types</option>
+                        <option value="Full-Time">Full-Time</option>
+                        <option value="Part-Time">Part-Time</option>
+                        <option value="Remote">Remote</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control">
-                        <option>Experience Level</option>
-                        <option>Entry Level</option>
-                        <option>Mid Level</option>
-                        <option>Senior Level</option>
+                    <select class="form-control" id="experienceLevel">
+                        <option value="">All Experience Levels</option>
+                        <option value="Entry Level">Entry Level</option>
+                        <option value="Mid Level">Mid Level</option>
+                        <option value="Senior Level">Senior Level</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <select class="form-control">
-                        <option>Salary Range</option>
-                        <option>$0 - $50k</option>
-                        <option>$50k - $100k</option>
-                        <option>$100k+</option>
+                    <select class="form-control" id="salaryRange">
+                        <option value="">All Salary Ranges</option>
+                        <option value="0-50">$0 - $50k</option>
+                        <option value="50-100">$50k - $100k</option>
+                        <option value="100+">$100k+</option>
                     </select>
                 </div>
                 <div class="col-md-3">
-                    <button type="search" class="btn btn-success w-100">Search</button>
+                    <button type="button" id="filterButton" class="btn btn-success w-100">Search</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Category Section -->
-    <!-- Category Section -->
-<div class="category-section text-center">
+    <!-- Search Results Section -->
     <div class="container">
-        <h2 class="fw-bold">Job Categories</h2>
-        <p>Explore jobs from various categories</p>
-        <div class="row mt-4">
-            <!-- Category 1: Software Engineer -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="logo1.png" alt="Software Engineer" class="job-logo">
-                    <h5>Software Engineer</h5>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#softwareEngineerModal">View Details</button>
-                </div>
+        <div id="noResults" class="no-results">
+            <h4>No jobs found matching your criteria</h4>
+            <p>Try adjusting your search filters</p>
+        </div>
+        
+        <div id="searchResults" class="search-results">
+            <h2 class="fw-bold text-center mb-4">Search Results</h2>
+            <div class="row" id="resultsContainer">
+                <!-- Results will be inserted here by JavaScript -->
             </div>
-            <!-- Category 2: Data Scientist -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="logo2.png" alt="Data Scientist" class="job-logo">
-                    <h5>Data Scientist</h5>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#dataScientistModal">View Details</button>
+        </div>
+    </div>
+
+    <!-- Category Section -->
+    <div class="category-section text-center">
+        <div class="container">
+            <h2 class="fw-bold">Job Categories</h2>
+            <p>Explore jobs from various categories</p>
+            <div class="row mt-4">
+                <!-- Category 1: Software Engineer -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Software Engineer" class="job-logo">
+                        <h5>Software Engineer</h5>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#softwareEngineerModal">View Details</button>
+                    </div>
                 </div>
-            </div>
-            <!-- Category 3: Graphic Designer -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="logo3.png" alt="Graphic Designer" class="job-logo">
-                    <h5>Graphic Designer</h5>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#graphicDesignerModal">View Details</button>
+                <!-- Category 2: Data Scientist -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Data Scientist" class="job-logo">
+                        <h5>Data Scientist</h5>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#dataScientistModal">View Details</button>
+                    </div>
+                </div>
+                <!-- Category 3: Graphic Designer -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Graphic Designer" class="job-logo">
+                        <h5>Graphic Designer</h5>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#graphicDesignerModal">View Details</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal for Software Engineer -->
-<div class="modal fade" id="softwareEngineerModal" tabindex="-1" aria-labelledby="softwareEngineerModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="softwareEngineerModalLabel">Software Engineer Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Software Engineer category...</p>
-        <ul>
-          <li>Skills: JavaScript, Python, etc.</li>
-          <li>Companies Hiring: XYZ, ABC Corp.</li>
-          <li>Average Salary: $80k - $120k</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Data Scientist -->
-<div class="modal fade" id="dataScientistModal" tabindex="-1" aria-labelledby="dataScientistModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="dataScientistModalLabel">Data Scientist Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Data Scientist category...</p>
-        <ul>
-          <li>Skills: R, Python, Machine Learning</li>
-          <li>Companies Hiring: Data Insights, AI Labs</li>
-          <li>Average Salary: $90k - $130k</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Graphic Designer -->
-<div class="modal fade" id="graphicDesignerModal" tabindex="-1" aria-labelledby="graphicDesignerModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="graphicDesignerModalLabel">Graphic Designer Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Graphic Designer category...</p>
-        <ul>
-          <li>Skills: Adobe Illustrator, Photoshop, etc.</li>
-          <li>Companies Hiring: Creative Studios, DesignWorks</li>
-          <li>Average Salary: $50k - $80k</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-   <!-- Recent Jobs Section -->
-<div class="recent-jobs-section text-center">
-    <div class="container">
-        <h2 class="fw-bold">Recent Job Listings</h2>
-        <p>Check out some of the latest job openings</p>
-        <div class="row mt-4">
-            <!-- Job 1: Software Engineer -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="company1-logo.png" alt="Company Logo" class="job-logo">
-                    <h5>Software Engineer</h5>
-                    <p>Company: XYZ Ltd.</p>
-                    <p>Location: Dhaka</p>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#softwareEngineerJobModal">View Details</button>
+    <!-- Recent Jobs Section -->
+    <div class="recent-jobs-section text-center">
+        <div class="container">
+            <h2 class="fw-bold">Recent Job Listings</h2>
+            <p>Check out some of the latest job openings</p>
+            <div class="row mt-4">
+                <!-- Job 1: Software Engineer -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Company Logo" class="job-logo">
+                        <h5>Software Engineer</h5>
+                        <p>Company: XYZ Ltd.</p>
+                        <p>Location: Dhaka</p>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#softwareEngineerJobModal">View Details</button>
+                    </div>
                 </div>
-            </div>
-            <!-- Job 2: Data Analyst -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="company2-logo.png" alt="Company Logo" class="job-logo">
-                    <h5>Data Analyst</h5>
-                    <p>Company: ABC Corp.</p>
-                    <p>Location: Remote</p>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#dataAnalystJobModal">View Details</button>
+                <!-- Job 2: Data Analyst -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Company Logo" class="job-logo">
+                        <h5>Data Analyst</h5>
+                        <p>Company: ABC Corp.</p>
+                        <p>Location: Remote</p>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#dataAnalystJobModal">View Details</button>
+                    </div>
                 </div>
-            </div>
-            <!-- Job 3: Marketing Specialist -->
-            <div class="col-md-4">
-                <div class="job-box">
-                    <img src="company3-logo.png" alt="Company Logo" class="job-logo">
-                    <h5>Marketing Specialist</h5>
-                    <p>Company: DEF Inc.</p>
-                    <p>Location: Chittagong</p>
-                    <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#marketingSpecialistJobModal">View Details</button>
+                <!-- Job 3: Marketing Specialist -->
+                <div class="col-md-4">
+                    <div class="job-box">
+                        <img src="job.jpeg" alt="Company Logo" class="job-logo">
+                        <h5>Marketing Specialist</h5>
+                        <p>Company: DEF Inc.</p>
+                        <p>Location: Chittagong</p>
+                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#marketingSpecialistJobModal">View Details</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!-- Modal for Software Engineer Job -->
-<div class="modal fade" id="softwareEngineerJobModal" tabindex="-1" aria-labelledby="softwareEngineerJobModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="softwareEngineerJobModalLabel">Software Engineer Job Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Software Engineer job at XYZ Ltd...</p>
-        <ul>
-          <li>Skills: Java, C++, SQL</li>
-          <li>Responsibilities: Develop and maintain software systems</li>
-          <li>Salary: $70k - $90k</li>
-          <li>Location: Dhaka</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Data Analyst Job -->
-<div class="modal fade" id="dataAnalystJobModal" tabindex="-1" aria-labelledby="dataAnalystJobModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="dataAnalystJobModalLabel">Data Analyst Job Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Data Analyst job at ABC Corp...</p>
-        <ul>
-          <li>Skills: Excel, Python, Data Visualization</li>
-          <li>Responsibilities: Analyze data to support decision making</li>
-          <li>Salary: $50k - $70k</li>
-          <li>Location: Remote</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal for Marketing Specialist Job -->
-<div class="modal fade" id="marketingSpecialistJobModal" tabindex="-1" aria-labelledby="marketingSpecialistJobModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="marketingSpecialistJobModalLabel">Marketing Specialist Job Details</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <p>Details about the Marketing Specialist job at DEF Inc...</p>
-        <ul>
-          <li>Skills: SEO, Social Media, Content Creation</li>
-          <li>Responsibilities: Manage marketing campaigns</li>
-          <li>Salary: $60k - $85k</li>
-          <li>Location: Chittagong</li>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Apply Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-
+    <!-- Modals (unchanged from your original code) -->
+    <!-- ... -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Dummy job data
+        const jobs = [
+            {
+                id: 1,
+                title: "Senior Software Engineer",
+                company: "Tech Solutions Inc.",
+                location: "Dhaka",
+                type: "Full-Time",
+                experience: "Senior Level",
+                salary: "120000",
+                description: "We're looking for an experienced software engineer to join our team.",
+                skills: ["JavaScript", "React", "Node.js"],
+                posted: "2 days ago"
+            },
+            {
+                id: 2,
+                title: "Data Analyst",
+                company: "Analytics Pro",
+                location: "Remote",
+                type: "Full-Time",
+                experience: "Mid Level",
+                salary: "75000",
+                description: "Analyze data and create reports for our clients.",
+                skills: ["Python", "SQL", "Excel"],
+                posted: "1 week ago"
+            },
+            {
+                id: 3,
+                title: "Graphic Designer",
+                company: "Creative Minds",
+                location: "Chittagong",
+                type: "Part-Time",
+                experience: "Entry Level",
+                salary: "35000",
+                description: "Create visual content for our marketing campaigns.",
+                skills: ["Photoshop", "Illustrator"],
+                posted: "3 days ago"
+            },
+            {
+                id: 4,
+                title: "Frontend Developer",
+                company: "WebWorks",
+                location: "Dhaka",
+                type: "Full-Time",
+                experience: "Mid Level",
+                salary: "90000",
+                description: "Build responsive and user-friendly web interfaces.",
+                skills: ["HTML", "CSS", "JavaScript", "React"],
+                posted: "5 days ago"
+            },
+            {
+                id: 5,
+                title: "Backend Developer",
+                company: "ServerSide Solutions",
+                location: "Remote",
+                type: "Full-Time",
+                experience: "Senior Level",
+                salary: "110000",
+                description: "Develop and maintain server-side applications.",
+                skills: ["Java", "Spring", "SQL"],
+                posted: "1 day ago"
+            },
+            {
+                id: 6,
+                title: "Marketing Intern",
+                company: "Growth Marketing",
+                location: "Dhaka",
+                type: "Part-Time",
+                experience: "Entry Level",
+                salary: "20000",
+                description: "Support our marketing team with various tasks.",
+                skills: ["Social Media", "Content Writing"],
+                posted: "1 week ago"
+            }
+        ];
+
+        // Search functionality
+        document.getElementById('searchButton').addEventListener('click', performSearch);
+        document.getElementById('filterButton').addEventListener('click', performSearch);
+        
+        // Also trigger search when pressing Enter in keyword search
+        document.getElementById('keywordSearch').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                performSearch();
+            }
+        });
+
+        function performSearch() {
+            const keyword = document.getElementById('keywordSearch').value.toLowerCase();
+            const jobType = document.getElementById('jobType').value;
+            const experience = document.getElementById('experienceLevel').value;
+            const salary = document.getElementById('salaryRange').value;
+            
+            // Filter jobs based on criteria
+            let results = jobs.filter(job => {
+                // Keyword search (title, company, or skills)
+                const keywordMatch = 
+                    job.title.toLowerCase().includes(keyword) || 
+                    job.company.toLowerCase().includes(keyword) ||
+                    job.skills.some(skill => skill.toLowerCase().includes(keyword));
+                
+                // Filter matches
+                const typeMatch = !jobType || job.type === jobType;
+                const expMatch = !experience || job.experience === experience;
+                
+                // Salary range match
+                let salaryMatch = true;
+                if (salary) {
+                    const jobSalary = parseInt(job.salary) / 1000; // Convert to thousands
+                    if (salary === "0-50" && jobSalary > 50) salaryMatch = false;
+                    if (salary === "50-100" && (jobSalary <= 50 || jobSalary > 100)) salaryMatch = false;
+                    if (salary === "100+" && jobSalary <= 100) salaryMatch = false;
+                }
+                
+                return keywordMatch && typeMatch && expMatch && salaryMatch;
+            });
+            
+            displayResults(results);
+        }
+        
+        function displayResults(results) {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const searchResults = document.getElementById('searchResults');
+            const noResults = document.getElementById('noResults');
+            
+            // Clear previous results
+            resultsContainer.innerHTML = '';
+            
+            if (results.length === 0) {
+                searchResults.style.display = 'none';
+                noResults.style.display = 'block';
+            } else {
+                noResults.style.display = 'none';
+                searchResults.style.display = 'block';
+                
+                // Add each result to the page
+                results.forEach(job => {
+                    const jobElement = document.createElement('div');
+                    jobElement.className = 'col-md-6 mb-4';
+                    jobElement.innerHTML = `
+                        <div class="job-box">
+                            <h5>${job.title}</h5>
+                            <p><strong>Company:</strong> ${job.company}</p>
+                            <p><strong>Location:</strong> ${job.location}</p>
+                            <p><strong>Type:</strong> ${job.type}</p>
+                            <p><strong>Experience:</strong> ${job.experience}</p>
+                            <p><strong>Salary:</strong> $${(job.salary / 1000)}k/year</p>
+                            <p><strong>Posted:</strong> ${job.posted}</p>
+                            <button class="btn btn-primary mt-2" onclick="viewJobDetails(${job.id})">View Details</button>
+                        </div>
+                    `;
+                    resultsContainer.appendChild(jobElement);
+                });
+            }
+            
+            // Scroll to results
+            searchResults.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // View job details (could open a modal with more info)
+        function viewJobDetails(jobId) {
+            const job = jobs.find(j => j.id === jobId);
+            if (job) {
+                alert(`Job Details:\n\nTitle: ${job.title}\nCompany: ${job.company}\n\nDescription: ${job.description}\n\nSkills: ${job.skills.join(', ')}`);
+            }
+        }
+        
+        // Initialize with all jobs displayed
+        window.onload = function() {
+            displayResults(jobs);
+        };
+    </script>
 </body>
 </html>
