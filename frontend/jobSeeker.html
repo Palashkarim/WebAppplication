@@ -99,20 +99,23 @@
      <!-- Navbar -->
      <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">Job<span class="text-success">Finder</span></a>
+            <a class="navbar-brand fw-bold" href="#">NEXT<span class="text-success">MOVE</span></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Log In</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="navbar-username"></a> <!-- Placeholder for username -->
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">Log out</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
-                    
                 </ul>
             </div>
         </div>
     </nav>
+    
     <div class="container py-5">
         <div class="settings-container">
             <div class="row">
@@ -584,6 +587,24 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JavaScript -->
     <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const user = JSON.parse(localStorage.getItem('user')); // Get user from localStorage
+    const usernameElement = document.getElementById('navbar-username');
+    const loginLink = document.querySelector('.nav-item a[href="#"]'); // Log in link
+
+    if (user) {
+        // Set the username in navbar
+        usernameElement.textContent = `Hello, ${user.username}`; 
+
+        // Hide "Log In" link after user is logged in
+        loginLink.style.display = 'none';
+    } else {
+        // If no user is logged in, show "Log In"
+        loginLink.style.display = 'block';
+    }
+});
+
+
         document.addEventListener('DOMContentLoaded', function() {
             // Handle skill addition
             document.getElementById('addSkillBtn').addEventListener('click', function() {

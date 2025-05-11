@@ -79,22 +79,7 @@
             align-items: center;
             padding: 2rem;
         }
-        .error-message {
-  color: #dc3545;
-  background: #ffebee;
-  padding: 12px;
-  border-radius: 8px;
-  margin-top: 20px;
-  font-size: 0.9rem;
-  text-align: center;
-  animation: fadeIn 0.3s ease;
-}
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-        
         .login-card {
             background: white;
             border-radius: 16px;
@@ -215,17 +200,19 @@
             }
         }
         .fa-spinner {
-  margin-right: 8px;
-}
+            margin-right: 8px;
+        }
 
-/* Error message styling */
-.error-message {
-  color: #dc3545;
-  font-size: 0.9rem;
-  margin-top: 1rem;
-  text-align: center;
-  display: none;
-}
+        .error-message {
+            color: #dc3545;
+            background: #ffebee;
+            padding: 12px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -233,14 +220,13 @@
     <nav class="navbar">
         <a href="#" class="nav-brand">
             <i class="fas fa-search" style="color: var(--accent);"></i>
-            <span>JobFinder</span>
+            <span>NEXT MOVE</span>
         </a>
         <div class="nav-links">
             <a href="homePage.html" class="nav-link">Home</a>
             <a href="contact.html" class="nav-link">Contact</a>
         </div>
     </nav>
-
 
     <!-- Login Container with Decorative Elements -->
     <div class="login-container">
@@ -274,67 +260,63 @@
 
     <script>
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
-          e.preventDefault();
-          
-          const email = document.getElementById('email').value; // Using email as username
-          const password = document.getElementById('password').value;
-          const loginBtn = e.target.querySelector('button[type="submit"]');
-          
-          try {
-            // Show loading state
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
-            loginBtn.disabled = true;
-            
-            // Call your backend API
-            const response = await fetch('http://localhost:3001/api/login', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                username: email, // Or use email directly if your backend accepts it
-                password
-              })
-            });
-      
-            const data = await response.json();
-      
-            if (!response.ok) {
-              throw new Error(data.error || 'Login failed');
-            }
-      
-            // Store authentication data
-            localStorage.setItem('token', data.token);
-            localStorage.setItem('user', JSON.stringify(data.user));
-      
-            // Redirect based on user type
-            switch(data.user.user_type) {
-              case 'admin':
-                window.location.href = 'admin.html';
-                break;
-              case 'employer':
-                window.location.href = 'jobPost.html';
-                break;
-              default:
-                window.location.href = 'jobSeeker.html';
-            }
-      
-          } catch (error) {
-            // Show error message (better than alert)
-            const errorElement = document.createElement('div');
-            errorElement.className = 'error-message';
-            errorElement.textContent = error.message;
-            
-            // Remove existing error if any
-            const existingError = document.querySelector('.error-message');
-            if (existingError) existingError.remove();
-            
-            // Insert after the form
-            e.target.parentNode.insertBefore(errorElement, e.target.nextSibling);
-            
-            // Reset button
-            loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-            loginBtn.disabled = false;
-          }
-        });
-      </script>
+  e.preventDefault();
+  
+  const email = document.getElementById('email').value; // Using email as username
+  const password = document.getElementById('password').value;
+  const loginBtn = e.target.querySelector('button[type="submit"]');
+  const errorMessageDiv = document.getElementById('errorMessage');
+  
+  try {
+    // Show loading state
+    loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Signing In...';
+    loginBtn.disabled = true;
+    errorMessageDiv.style.display = 'none'; // Hide previous error message
+    
+    // Call your backend API
+    const response = await fetch('http://localhost:3001/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: email, // Or use email directly if your backend accepts it
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Login failed');
+    }
+
+    // Store authentication data
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    // Redirect based on the user role
+    const userRole = data.user.user_type;
+
+    // Assuming the backend sends the role
+    if (userRole === 'admin') {
+      window.location.href = 'admin.html';
+    } else if (userRole === 'job_seeker') {
+      window.location.href = 'jobSeeker.html';
+    } else if (userRole === 'employer') {
+      window.location.href = 'jobPost.html';
+    } else {
+      throw new Error('Unknown role');
+    }
+    
+  } catch (error) {
+    errorMessageDiv.innerText = error.message;
+    errorMessageDiv.style.display = 'block';
+  } finally {
+    // Reset the button state
+    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+    loginBtn.disabled = false;
+  }
+});
+
+    </script>
 </body>
 </html>

@@ -1,109 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Employer Job Posting</title>
-  <link rel="stylesheet" href="jobPost.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="jobPost.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 </head>
 <body>
-  <!-- Navbar Section -->
-  <nav class="navbar">
-    <div class="navbar-logo">
-      <h2>JobPortal</h2>
-    </div>
-    <ul class="navbar-links">
-      <li><a href="#home">Home</a></li>
-      
-      <li><a href="#logoutLink">Logout</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
 
-  <!-- Header Section -->
-  <header class="header" id="home">
-    <h1>Employer Job Posting</h1>
-    <p>Create and manage job listings efficiently.</p>
-  </header>
-
-  <!-- Create Job Post Form -->
-  <div class="job-form" id="create-job">
-    <h2>Create Job Post</h2>
-    <form>
-      <label for="job-title">Job Title</label>
-      <input type="text" id="job-title" placeholder="Full Stack Frontend">
-
-      <label for="company-name">Company Name</label>
-      <input type="text" id="company-name" placeholder="Facebook, Inc.">
-
-      <label for="job-type">Job Type</label>
-      <select id="job-type">
-        <option>Full Time</option>
-        <option>Part Time</option>
-        <option>Internship</option>
-        <option>Temporary</option>
-      </select>
-
-      <label for="location">Location</label>
-      <input type="text" id="location" placeholder="New York City">
-
-      <label for="salary-range">Salary Range</label>
-      <input type="text" id="salary-range" placeholder="$2000 - $3000">
-
-      <label for="job-description">Job Description</label>
-      <textarea id="job-description" rows="5" placeholder="Enter job description..."></textarea>
-
-      <label for="skills">Required Skills</label>
-      <input type="text" id="skills" placeholder="Add skills (e.g., React, JavaScript)">
-
-      <label for="experience-level">Experience Level</label>
-      <select id="experience-level">
-        <option>Entry Level</option>
-        <option>Mid Level</option>
-        <option>Senior Level</option>
-      </select>
-
-      <div class="form-actions">
-        <button class="btn-primary">Publish Job Post</button>
-        <button class="btn-secondary">Edit Listing</button>
-      </div>
-    </form>
+<!-- Navbar Section -->
+<nav class="navbar">
+  <div class="navbar-logo">
+    <h2>NEXT MOVE</h2>
   </div>
+  <ul class="navbar-links">
+    <li><a href="homePage.html">Home</a></li>
+    <li><a href="login.html">Logout</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
- <!-- Job Details Section -->
-<div class="job-details">
-  <h2>Job Details</h2>
-  <div class="details-card">
-    <p><strong>Job Title:</strong> Full Stack Frontend</p>
-    <p><strong>Company:</strong> Facebook, Inc.</p>
-    <p><strong>Job Type:</strong> Full Time</p>
-    <p><strong>Location:</strong> New York City</p>
-    <p><strong>Salary Range:</strong> $2000 - $3000</p>
-    <p><strong>Experience Level:</strong> Mid Level</p>
-    <p><strong>Required Skills:</strong> React, JavaScript, HTML, CSS</p>
-    <p><strong>Job Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<!-- Header Section -->
+<header class="header" id="home">
+  <h1>Employer Job Posting</h1>
+  <p>Create and manage job listings efficiently.</p>
+</header>
 
-    <!-- Action Buttons -->
-    <div class="detail-actions" style="margin-top: 20px;">
-      <button class="btn-primary">Edit</button>
-      <button class="btn-secondary" style="background-color: #dc3545; color: white;">Delete</button>
+<!-- Create Job Post Form -->
+<div class="job-form" id="create-job">
+  <h2>Create Job Post</h2>
+  <form id="jobPostForm">
+    <label for="job-title">Job Title</label>
+    <input type="text" id="job-title" placeholder="Full Stack Frontend" required />
+
+    <label for="job-type">Job Type</label>
+    <select id="job-type" required>
+      <option value="">Select Type</option>
+      <option>Full Time</option>
+      <option>Part Time</option>
+      <option>Internship</option>
+      <option>Temporary</option>
+    </select>
+
+    <label for="location">Location</label>
+    <input type="text" id="location" placeholder="New York City" required />
+
+    <label for="salary-range">Salary Range</label>
+    <input type="text" id="salary-range" placeholder="$2000 - $3000" required />
+
+    <label for="experience-level">Experience Level</label>
+    <select id="experience-level" required>
+      <option value="">Select Level</option>
+      <option>Entry Level</option>
+      <option>Mid Level</option>
+      <option>Senior Level</option>
+    </select>
+
+    <label for="job-description">Job Description</label>
+    <textarea id="job-description" rows="5" placeholder="Enter job description..." required></textarea>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-primary">Publish Job Post</button>
+      <button type="reset" class="btn-secondary">Reset Form</button>
     </div>
-  </div>
+  </form>
 </div>
 
+<!-- Contact Information Section -->
+<div class="contact-info" id="contact">
+  <h2>Contact Information</h2>
+  <p><i class="fas fa-map-marker-alt"></i> 208 False St. Mountain View, San Francisco, California, USA</p>
+  <p><i class="fas fa-phone"></i> +1 232 3235 324</p>
+  <p><i class="fas fa-envelope"></i> youremail@domain.com</p>
+</div>
 
-  <!-- Contact Information Section -->
-  <div class="contact-info" id="contact">
-    <h2>Contact Information</h2>
-    <p><i class="fas fa-map-marker-alt"></i> 208 False St. Mountain View, San Francisco, California, USA</p>
-    <p><i class="fas fa-phone"></i> +1 232 3235 324</p>
-    <p><i class="fas fa-envelope"></i> youremail@domain.com</p>
-  </div>
+<!-- Footer Section -->
+<footer class="footer">
+  <p>&copy; 2025 JobPortal. All rights reserved.</p>
+</footer>
 
-  <!-- Footer Section -->
-  <footer class="footer">
-    <p>&copy; 2025 JobPortal. All rights reserved.</p>
-  </footer>
+<!-- Job Post Submission Script -->
+<script>
+document.getElementById('jobPostForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const title = document.getElementById('job-title').value;
+  const description = document.getElementById('job-description').value;
+  const location = document.getElementById('location').value;
+  const type = document.getElementById('job-type').value;
+  const salary = document.getElementById('salary-range').value;
+  const experience_level = document.getElementById('experience-level').value;
+
+  // TODO: Replace with actual employer_id from session or localStorage
+  const employer_id = 1;
+
+  const jobData = { title, description, location, type, salary, experience_level, employer_id };
+
+  try {
+    const response = await fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(jobData)
+    });
+
+    const result = await response.json();
+    if (response.ok) {
+      alert(result.message);
+      document.getElementById('jobPostForm').reset();
+    } else {
+      alert('Failed to post job');
+    }
+  } catch (error) {
+    alert('Error posting job');
+    console.error(error);
+  }
+});
+</script>
+
 </body>
 </html>
