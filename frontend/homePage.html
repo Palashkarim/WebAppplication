@@ -10,6 +10,16 @@
             background: url('homepage.jpg') no-repeat center center fixed;
             background-size: cover;
         }
+        /* Navbar with blur effect */
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8) !important;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+        }
         .hero-section {
             background: rgba(30, 29, 29, 0.6);
             color: white;
@@ -88,6 +98,21 @@
             font-size: 20px;
             margin-right: 15px;
         }
+        /* Button styles */
+        .btn-view-details {
+            background-color: #0d6efd;
+            color: white;
+            margin-right: 10px;
+        }
+        .btn-apply {
+            background-color: #198754;
+            color: white;
+        }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 15px;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
@@ -99,8 +124,8 @@
           
           <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-              <li class="nav-item logged-out"><a class="nav-link" href="login.html">Login</a></li>
-              <li class="nav-item logged-out"><a class="nav-link" href="register.html">Register</a></li>
+              <li class="nav-item logged-out"><a class="nav-link" href="login.html">Logout</a></li>
+              <li class="nav-item logged-out"><a class="nav-link" href="jobSeeker.html">Profile settings</a></li>
               
               <li class="nav-item dropdown logged-in" style="display: none;">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown">
@@ -232,7 +257,10 @@
                         <h5>Software Engineer</h5>
                         <p>Company: XYZ Ltd.</p>
                         <p>Location: Dhaka</p>
-                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#softwareEngineerJobModal">View Details</button>
+                        <div class="btn-container">
+                            <button class="btn btn-view-details" data-bs-toggle="modal" data-bs-target="#softwareEngineerJobModal">View Details</button>
+                            <button class="btn btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal">Apply</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Job 2: Data Analyst -->
@@ -242,7 +270,10 @@
                         <h5>Data Analyst</h5>
                         <p>Company: ABC Corp.</p>
                         <p>Location: Remote</p>
-                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#dataAnalystJobModal">View Details</button>
+                        <div class="btn-container">
+                            <button class="btn btn-view-details" data-bs-toggle="modal" data-bs-target="#dataAnalystJobModal">View Details</button>
+                            <button class="btn btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal">Apply</button>
+                        </div>
                     </div>
                 </div>
                 <!-- Job 3: Marketing Specialist -->
@@ -252,7 +283,10 @@
                         <h5>Marketing Specialist</h5>
                         <p>Company: DEF Inc.</p>
                         <p>Location: Chittagong</p>
-                        <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#marketingSpecialistJobModal">View Details</button>
+                        <div class="btn-container">
+                            <button class="btn btn-view-details" data-bs-toggle="modal" data-bs-target="#marketingSpecialistJobModal">View Details</button>
+                            <button class="btn btn-apply" data-bs-toggle="modal" data-bs-target="#applyModal">Apply</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -323,8 +357,45 @@
         </div>
     </footer>
 
-    <!-- Modals (unchanged from your original code) -->
-    <!-- ... -->
+    <!-- Apply Modal -->
+    <div class="modal fade" id="applyModal" tabindex="-1" aria-labelledby="applyModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="applyModalLabel">Apply for Job</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="applicationForm">
+                        <div class="mb-3">
+                            <label for="applicantName" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="applicantName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="applicantEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="applicantEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="applicantPhone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="applicantPhone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="applicantResume" class="form-label">Upload Resume</label>
+                            <input type="file" class="form-control" id="applicantResume" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="coverLetter" class="form-label">Cover Letter</label>
+                            <textarea class="form-control" id="coverLetter" rows="5"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="submitApplication()">Submit Application</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
@@ -477,7 +548,10 @@
                             <p><strong>Experience:</strong> ${job.experience}</p>
                             <p><strong>Salary:</strong> $${(job.salary / 1000)}k/year</p>
                             <p><strong>Posted:</strong> ${job.posted}</p>
-                            <button class="btn btn-primary mt-2" onclick="viewJobDetails(${job.id})">View Details</button>
+                            <div class="btn-container">
+                                <button class="btn btn-view-details" onclick="viewJobDetails(${job.id})">View Details</button>
+                                <button class="btn btn-apply" onclick="openApplyModal(${job.id})">Apply</button>
+                            </div>
                         </div>
                     `;
                     resultsContainer.appendChild(jobElement);
@@ -494,6 +568,24 @@
             if (job) {
                 alert(`Job Details:\n\nTitle: ${job.title}\nCompany: ${job.company}\n\nDescription: ${job.description}\n\nSkills: ${job.skills.join(', ')}`);
             }
+        }
+        
+        // Open apply modal
+        function openApplyModal(jobId) {
+            const job = jobs.find(j => j.id === jobId);
+            if (job) {
+                // You could set the job title in the modal here
+                const applyModal = new bootstrap.Modal(document.getElementById('applyModal'));
+                applyModal.show();
+            }
+        }
+        
+        // Submit application
+        function submitApplication() {
+            alert('Application submitted successfully!');
+            const applyModal = bootstrap.Modal.getInstance(document.getElementById('applyModal'));
+            applyModal.hide();
+            document.getElementById('applicationForm').reset();
         }
         
         // Initialize with all jobs displayed

@@ -3,9 +3,265 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Employer Job Posting</title>
-  <link rel="stylesheet" href="jobPost.css"/>
+  <title>Employer Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+  <style>
+    /* Add your CSS styles here */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+    
+    .navbar {
+      background-color: #2c3e50;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .navbar-logo h2 {
+      margin: 0;
+      color: #ecf0f1;
+    }
+    
+    .navbar-links {
+      display: flex;
+      list-style: none;
+    }
+    
+    .navbar-links li a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1.5rem;
+      transition: color 0.3s;
+    }
+    
+    .navbar-links li a:hover {
+      color: #3498db;
+    }
+    
+    .header {
+      background-color: #3498db;
+      color: white;
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    
+    .dashboard-container {
+      display: flex;
+      padding: 2rem;
+      gap: 2rem;
+    }
+    
+    .job-form, .posted-jobs, .applicants-section {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .job-form {
+      flex: 1;
+    }
+    
+    .posted-jobs {
+      flex: 2;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+    
+    input, select, textarea {
+      width: 100%;
+      padding: 0.75rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    
+    button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+    }
+    
+    .btn-primary {
+      background-color: #3498db;
+      color: white;
+    }
+    
+    .btn-primary:hover {
+      background-color: #2980b9;
+    }
+    
+    .btn-secondary {
+      background-color: #95a5a6;
+      color: white;
+    }
+    
+    .btn-secondary:hover {
+      background-color: #7f8c8d;
+    }
+    
+    .btn-success {
+      background-color: #2ecc71;
+      color: white;
+    }
+    
+    .btn-success:hover {
+      background-color: #27ae60;
+    }
+    
+    .btn-danger {
+      background-color: #e74c3c;
+      color: white;
+    }
+    
+    .btn-danger:hover {
+      background-color: #c0392b;
+    }
+    
+    .job-list {
+      margin-top: 1rem;
+    }
+    
+    .job-card {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    
+    .job-card h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+    
+    .job-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+      color: #7f8c8d;
+    }
+    
+    .job-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .applicants-list {
+      margin-top: 1rem;
+    }
+    
+    .applicant-card {
+      border: 1px solid #eee;
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .applicant-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .applicant-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .status-pending {
+      color: #f39c12;
+    }
+    
+    .status-approved {
+      color: #2ecc71;
+    }
+    
+    .status-rejected {
+      color: #e74c3c;
+    }
+    
+    .tab-container {
+      margin-bottom: 2rem;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.5rem;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    
+    .tab.active {
+      border-bottom-color: #3498db;
+      font-weight: 600;
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .cv-preview {
+      margin-top: 1rem;
+      padding: 1rem;
+      background-color: #f9f9f9;
+      border-radius: 4px;
+    }
+    
+    .contact-info {
+      background-color: #2c3e50;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    
+    .contact-info p {
+      margin: 0.5rem 0;
+    }
+    
+    .footer {
+      background-color: #1a252f;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -23,48 +279,77 @@
 
 <!-- Header Section -->
 <header class="header" id="home">
-  <h1>Employer Job Posting</h1>
-  <p>Create and manage job listings efficiently.</p>
+  <h1>Employer Dashboard</h1>
+  <p>Manage your job postings and applicants</p>
 </header>
 
-<!-- Create Job Post Form -->
-<div class="job-form" id="create-job">
-  <h2>Create Job Post</h2>
-  <form id="jobPostForm">
-    <label for="job-title">Job Title</label>
-    <input type="text" id="job-title" placeholder="Full Stack Frontend" required />
+<!-- Dashboard Container -->
+<div class="dashboard-container">
+  <!-- Create Job Post Form -->
+  <div class="job-form" id="create-job">
+    <h2>Create Job Post</h2>
+    <form id="jobPostForm">
+      <label for="job-title">Job Title</label>
+      <input type="text" id="job-title" placeholder="Full Stack Developer" required />
 
-    <label for="job-type">Job Type</label>
-    <select id="job-type" required>
-      <option value="">Select Type</option>
-      <option>Full Time</option>
-      <option>Part Time</option>
-      <option>Internship</option>
-      <option>Temporary</option>
-    </select>
+      <label for="job-type">Job Type</label>
+      <select id="job-type" required>
+        <option value="">Select Type</option>
+        <option>Full Time</option>
+        <option>Part Time</option>
+        <option>Internship</option>
+        <option>Temporary</option>
+      </select>
 
-    <label for="location">Location</label>
-    <input type="text" id="location" placeholder="New York City" required />
+      <label for="location">Location</label>
+      <input type="text" id="location" placeholder="New York City" required />
 
-    <label for="salary-range">Salary Range</label>
-    <input type="text" id="salary-range" placeholder="$2000 - $3000" required />
+      <label for="salary-range">Salary Range</label>
+      <input type="text" id="salary-range" placeholder="$2000 - $3000" required />
 
-    <label for="experience-level">Experience Level</label>
-    <select id="experience-level" required>
-      <option value="">Select Level</option>
-      <option>Entry Level</option>
-      <option>Mid Level</option>
-      <option>Senior Level</option>
-    </select>
+      <label for="experience-level">Experience Level</label>
+      <select id="experience-level" required>
+        <option value="">Select Level</option>
+        <option>Entry Level</option>
+        <option>Mid Level</option>
+        <option>Senior Level</option>
+      </select>
 
-    <label for="job-description">Job Description</label>
-    <textarea id="job-description" rows="5" placeholder="Enter job description..." required></textarea>
+      <label for="job-description">Job Description</label>
+      <textarea id="job-description" rows="5" placeholder="Enter job description..." required></textarea>
 
-    <div class="form-actions">
-      <button type="submit" class="btn-primary">Publish Job Post</button>
-      <button type="reset" class="btn-secondary">Reset Form</button>
+      <div class="form-actions">
+        <button type="submit" class="btn-primary">Publish Job Post</button>
+        <button type="reset" class="btn-secondary">Reset Form</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Posted Jobs and Applicants Section -->
+  <div class="posted-jobs">
+    <div class="tab-container">
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab('posted-jobs-tab')">Posted Jobs</div>
+        <div class="tab" onclick="switchTab('applicants-tab')">Applicants</div>
+      </div>
     </div>
-  </form>
+
+    <!-- Posted Jobs Tab -->
+    <div id="posted-jobs-tab" class="tab-content active">
+      <h2>Your Job Posts</h2>
+      <div class="job-list" id="jobList">
+        <!-- Job cards will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <!-- Applicants Tab -->
+    <div id="applicants-tab" class="tab-content">
+      <h2>Applicants</h2>
+      <div class="applicants-list" id="applicantsList">
+        <!-- Applicant cards will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- Contact Information Section -->
@@ -80,42 +365,267 @@
   <p>&copy; 2025 JobPortal. All rights reserved.</p>
 </footer>
 
-<!-- Job Post Submission Script -->
+<!-- JavaScript for Dashboard Functionality -->
 <script>
-document.getElementById('jobPostForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  const title = document.getElementById('job-title').value;
-  const description = document.getElementById('job-description').value;
-  const location = document.getElementById('location').value;
-  const type = document.getElementById('job-type').value;
-  const salary = document.getElementById('salary-range').value;
-  const experience_level = document.getElementById('experience-level').value;
-
-  // TODO: Replace with actual employer_id from session or localStorage
-  const employer_id = 1;
-
-  const jobData = { title, description, location, type, salary, experience_level, employer_id };
-
-  try {
-    const response = await fetch('http://localhost:5000/api/jobs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(jobData)
-    });
-
-    const result = await response.json();
-    if (response.ok) {
-      alert(result.message);
-      document.getElementById('jobPostForm').reset();
-    } else {
-      alert('Failed to post job');
+  // Dummy data for demonstration
+  const dummyJobs = [
+    {
+      id: 1,
+      title: "Full Stack Developer",
+      type: "Full Time",
+      location: "New York",
+      salary: "$5000 - $7000",
+      experience: "Mid Level",
+      description: "We are looking for a skilled Full Stack Developer to join our team...",
+      applicants: [
+        {
+          id: 101,
+          name: "John Doe",
+          email: "john@example.com",
+          status: "pending",
+          cv: "John_Doe_CV.pdf",
+          appliedDate: "2023-05-15"
+        },
+        {
+          id: 102,
+          name: "Jane Smith",
+          email: "jane@example.com",
+          status: "approved",
+          cv: "Jane_Smith_CV.pdf",
+          appliedDate: "2023-05-10"
+        }
+      ]
+    },
+    {
+      id: 2,
+      title: "UX Designer",
+      type: "Part Time",
+      location: "Remote",
+      salary: "$3000 - $4000",
+      experience: "Entry Level",
+      description: "Looking for a creative UX Designer to work on our new projects...",
+      applicants: [
+        {
+          id: 201,
+          name: "Alex Johnson",
+          email: "alex@example.com",
+          status: "rejected",
+          cv: "Alex_Johnson_CV.pdf",
+          appliedDate: "2023-05-12"
+        }
+      ]
     }
-  } catch (error) {
-    alert('Error posting job');
-    console.error(error);
+  ];
+
+  // Current state
+  let currentJobs = [...dummyJobs];
+  let editingJobId = null;
+
+  // DOM Elements
+  const jobListEl = document.getElementById('jobList');
+  const applicantsListEl = document.getElementById('applicantsList');
+  const jobPostForm = document.getElementById('jobPostForm');
+  const jobTitleInput = document.getElementById('job-title');
+  const jobTypeInput = document.getElementById('job-type');
+  const locationInput = document.getElementById('location');
+  const salaryInput = document.getElementById('salary-range');
+  const experienceInput = document.getElementById('experience-level');
+  const descriptionInput = document.getElementById('job-description');
+
+  // Initialize the dashboard
+  document.addEventListener('DOMContentLoaded', () => {
+    renderJobList();
+    renderApplicantsList();
+  });
+
+  // Switch between tabs
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.classList.remove('active');
+    });
+    
+    document.getElementById(tabId).classList.add('active');
+    event.target.classList.add('active');
   }
-});
+
+  // Render job list
+  function renderJobList() {
+    jobListEl.innerHTML = '';
+    
+    if (currentJobs.length === 0) {
+      jobListEl.innerHTML = '<p>No job posts yet. Create your first job post!</p>';
+      return;
+    }
+    
+    currentJobs.forEach(job => {
+      const jobCard = document.createElement('div');
+      jobCard.className = 'job-card';
+      jobCard.innerHTML = `
+        <h3>${job.title}</h3>
+        <div class="job-meta">
+          <span><i class="fas fa-briefcase"></i> ${job.type}</span>
+          <span><i class="fas fa-map-marker-alt"></i> ${job.location}</span>
+          <span><i class="fas fa-money-bill-wave"></i> ${job.salary}</span>
+          <span><i class="fas fa-chart-line"></i> ${job.experience}</span>
+        </div>
+        <p>${job.description}</p>
+        <div class="job-actions">
+          <button class="btn-primary" onclick="editJob(${job.id})">Edit</button>
+          <button class="btn-danger" onclick="deleteJob(${job.id})">Delete</button>
+          <button class="btn-secondary" onclick="viewApplicants(${job.id})">View Applicants (${job.applicants.length})</button>
+        </div>
+      `;
+      jobListEl.appendChild(jobCard);
+    });
+  }
+
+  // Render applicants list
+  function renderApplicantsList() {
+    applicantsListEl.innerHTML = '';
+    
+    let hasApplicants = false;
+    
+    currentJobs.forEach(job => {
+      if (job.applicants && job.applicants.length > 0) {
+        hasApplicants = true;
+        job.applicants.forEach(applicant => {
+          const applicantCard = document.createElement('div');
+          applicantCard.className = 'applicant-card';
+          applicantCard.innerHTML = `
+            <div class="applicant-header">
+              <div>
+                <h4>${applicant.name}</h4>
+                <p>Applied for: ${job.title} • ${applicant.appliedDate}</p>
+              </div>
+              <span class="status-${applicant.status}">
+                ${applicant.status.charAt(0).toUpperCase() + applicant.status.slice(1)}
+              </span>
+            </div>
+            <p><i class="fas fa-envelope"></i> ${applicant.email}</p>
+            <div class="applicant-actions">
+              <button class="btn-success" onclick="approveApplicant(${job.id}, ${applicant.id})">Approve</button>
+              <button class="btn-danger" onclick="rejectApplicant(${job.id}, ${applicant.id})">Reject</button>
+              <button class="btn-primary" onclick="viewCV('${applicant.cv}', '${applicant.name}')">View CV</button>
+            </div>
+          `;
+          applicantsListEl.appendChild(applicantCard);
+        });
+      }
+    });
+    
+    if (!hasApplicants) {
+      applicantsListEl.innerHTML = '<p>No applicants yet. Check back later!</p>';
+    }
+  }
+
+  // Form submission for creating/updating jobs
+  jobPostForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const jobData = {
+      title: jobTitleInput.value,
+      type: jobTypeInput.value,
+      location: locationInput.value,
+      salary: salaryInput.value,
+      experience: experienceInput.value,
+      description: descriptionInput.value,
+      applicants: []
+    };
+    
+    if (editingJobId !== null) {
+      // Update existing job
+      const jobIndex = currentJobs.findIndex(job => job.id === editingJobId);
+      if (jobIndex !== -1) {
+        currentJobs[jobIndex] = { ...currentJobs[jobIndex], ...jobData };
+      }
+      editingJobId = null;
+      document.querySelector('.form-actions button[type="submit"]').textContent = 'Publish Job Post';
+    } else {
+      // Create new job
+      const newJob = {
+        id: currentJobs.length > 0 ? Math.max(...currentJobs.map(job => job.id)) + 1 : 1,
+        ...jobData
+      };
+      currentJobs.push(newJob);
+    }
+    
+    jobPostForm.reset();
+    renderJobList();
+    renderApplicantsList();
+    alert('Job saved successfully!');
+  });
+
+  // Edit job
+  function editJob(jobId) {
+    const job = currentJobs.find(job => job.id === jobId);
+    if (job) {
+      jobTitleInput.value = job.title;
+      jobTypeInput.value = job.type;
+      locationInput.value = job.location;
+      salaryInput.value = job.salary;
+      experienceInput.value = job.experience;
+      descriptionInput.value = job.description;
+      
+      editingJobId = jobId;
+      document.querySelector('.form-actions button[type="submit"]').textContent = 'Update Job Post';
+      
+      // Scroll to form
+      document.getElementById('create-job').scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
+  // Delete job
+  function deleteJob(jobId) {
+    if (confirm('Are you sure you want to delete this job post?')) {
+      currentJobs = currentJobs.filter(job => job.id !== jobId);
+      renderJobList();
+      renderApplicantsList();
+    }
+  }
+
+  // View applicants for a specific job
+  function viewApplicants(jobId) {
+    // Switch to applicants tab
+    switchTab('applicants-tab');
+    
+    // In a real app, you might filter applicants by jobId here
+  }
+
+  // Approve applicant
+  function approveApplicant(jobId, applicantId) {
+    const job = currentJobs.find(job => job.id === jobId);
+    if (job) {
+      const applicant = job.applicants.find(app => app.id === applicantId);
+      if (applicant) {
+        applicant.status = 'approved';
+        renderApplicantsList();
+      }
+    }
+  }
+
+  // Reject applicant
+  function rejectApplicant(jobId, applicantId) {
+    const job = currentJobs.find(job => job.id === jobId);
+    if (job) {
+      const applicant = job.applicants.find(app => app.id === applicantId);
+      if (applicant) {
+        applicant.status = 'rejected';
+        renderApplicantsList();
+      }
+    }
+  }
+
+  // View CV (simulated)
+  function viewCV(cvFile, applicantName) {
+    alert(`Opening CV: ${cvFile}\n\nIn a real application, this would display or download the CV file for ${applicantName}.`);
+    
+    // In a real app, you would:
+    // 1. Fetch the CV file from your server
+    // 2. Display it in a modal or new tab, or trigger a download
+  }
 </script>
 
 </body>
